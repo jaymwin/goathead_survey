@@ -2,11 +2,22 @@
 library(sf)
 library(tmap)
 
-# load survey route
+# load survey route; this was created from mapmyrun kml file
 survey_route = st_read(here::here("data"), "field_camas_canal")
 
-# load goathead locations
-goatheads <- read_csv(here::here("output_data/2020-06-26.csv")) %>%
+# load goathead locations from epicollect
+csv_files <- dir_ls(here::here('output_data'), regexp = "\\.csv$")
+
+goatheads <- csv_files %>% 
+  map_dfr(read_csv) %>%
+  group_by(date) %>%
+  arrange(date) %>%
+  mutate(
+    survey_num = as.integer(factor(date))
+  ) %>%
+  select(survey_num, Date = date, flowering, lat, long) %>%
+  
+  # turn into sf object for mapping
   st_as_sf(
     .,
     coords = c('long', 'lat'),
@@ -18,9 +29,12 @@ goatheads
 route_plot <- tm_shape(survey_route) +
   tm_lines(col = 'orange', lwd = 2) 
 
+# add goathead locations
 route_plot + tm_shape(goatheads) +
-  tm_dots(col = 'orchid', size = 0.05)
+  tm_bubbles(col = 'Date', size = 1) +
+  tm_layout('Weekly goathead survey')
 
 # get interactive view
 tmap_mode("view")
 tmap_last()
+
