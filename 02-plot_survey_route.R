@@ -5,7 +5,6 @@ library(tmap)
 # load survey route
 survey_route = st_read(here::here("data"), "field_camas_canal")
 
-
 # load goathead locations
 goatheads <- read_csv(here::here("output_data/2020-06-26.csv")) %>%
   st_as_sf(
