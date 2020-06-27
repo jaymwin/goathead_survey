@@ -36,5 +36,8 @@ route_plot + tm_shape(goatheads) +
 
 # get interactive view
 tmap_mode("view")
-tmap_last()
+weekly_map <- tmap_last()
+
+tmap_save(weekly_map, "weekly_map.html")
+
 
