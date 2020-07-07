@@ -1,6 +1,7 @@
 
 library(sf)
 library(tmap)
+library(fs)
 
 # load survey route; this was created from mapmyrun kml file
 survey_route = st_read(here::here("data"), "field_camas_canal")
