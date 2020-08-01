@@ -31,3 +31,4 @@ dat
 
 dat %>%
   write_csv(str_c(here::here('output_data/'), Sys.Date(), '.csv'))
+
