@@ -1,2 +1,2 @@
 # goathead_survey
-collecting and plotting data from weekly goathead presence/absence surveys via epicollect
+Querying and downloading data from the Epicollect data collection app to clean and plot weekly goathead (*Tribulus terrestris*) presence/absence surveys
